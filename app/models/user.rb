@@ -2,11 +2,13 @@
 
 # user model. table: users
 class User < ApplicationRecord
-  default_scope { where(deleted_at: nil) }
   validates_presence_of %i[name email]
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates_format_of :phone, with: /(0|\+)[0-9]{9,15}/, message: 'Phone format invalid'
   has_many :sessions
+  has_one :wallet, source: :typeable, source_type: User, optional: true
+  has_many :team_members
+  has_many :teams, through: :team_members
 
   def self.login(emaill, password)
     require 'bcrypt'

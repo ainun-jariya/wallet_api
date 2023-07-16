@@ -17,6 +17,7 @@ module Api
       user = User.new(user_params)
       user.password = User.generate_password(user_params[:password])
       if user.save
+        user.wallet.save
         render json: user, except: %i[deleted_at password]
       else
         render json: user.errors, status: 422
@@ -36,6 +37,7 @@ module Api
 
     def destroy
       user = User.find(params[:id])
+      user.wallet.soft_destroy
       user.soft_destroy
 
       render json: { message: 'User has been deleted' }.to_json, status: 200

@@ -13,5 +13,14 @@ Rails.application.routes.draw do
         delete :destroy
       end
     end
+    resources :teams
+    resources :money, only: %i[create]
+    resources :transactions, only: %i[] do
+      collection do
+        post :buy
+        post :sell
+      end
+    end
+    resources :stocks, only: %i[index show]
   end
 end
