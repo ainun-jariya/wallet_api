@@ -8,5 +8,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :users
+    resources :sessions, only: %i[index create] do
+      collection do
+        delete :destroy
+      end
+    end
   end
 end
