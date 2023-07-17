@@ -14,7 +14,12 @@ Rails.application.routes.draw do
       end
     end
     resources :teams
-    resources :money, only: %i[create]
+    resources :money, only: %i[] do
+      collection do
+        post :cash_in
+        post :cash_out
+      end
+    end
     resources :transactions, only: %i[] do
       collection do
         post :buy

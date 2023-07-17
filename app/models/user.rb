@@ -6,9 +6,10 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates_format_of :phone, with: /(0|\+)[0-9]{9,15}/, message: 'Phone format invalid'
   has_many :sessions
-  has_one :wallet, source: :typeable, source_type: User, optional: true
+  has_one :wallet, as: :typeable
   has_many :team_members
   has_many :teams, through: :team_members
+  attr_protected :password
 
   def self.login(emaill, password)
     require 'bcrypt'

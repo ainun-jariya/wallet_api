@@ -12,6 +12,7 @@ class CreateStocks < ActiveRecord::Migration[7.0]
       # t.references :user
       t.integer :status
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end

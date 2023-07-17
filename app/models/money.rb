@@ -3,10 +3,10 @@
 # money model. table: money
 class Money < ApplicationRecord
   belongs_to :wallet
+  # attr_accessor :wallet_id, :debit, :credit, :note
 
-  const DEBIT = 'debit'
-  const CREDIT = 'credit'
+  alias_attribute :amount, :debit # first initialization
 
-  const STATUS_NEW = 0
-  const STATUS_OK = 1
+  DEBIT = 'debit'
+  CREDIT = 'credit'
 end

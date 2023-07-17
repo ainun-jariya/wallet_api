@@ -2,4 +2,5 @@
 
 # stock model. table: stocks
 class Stock < ApplicationRecord
+  has_many :transactions, as: :product
 end

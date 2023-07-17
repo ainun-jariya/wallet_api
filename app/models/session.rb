@@ -2,6 +2,7 @@
 
 # user model. table: sessions
 class Session < ApplicationRecord
+  default_scope { unscoped }
   belongs_to :user
 
   class << self

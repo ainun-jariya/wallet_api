@@ -3,10 +3,11 @@
 # transaction model. table: transactions
 class Transaction < ApplicationRecord
   belongs_to :wallet
+  alias_attribute :amount, :debit # first initialization
 
-  const DEBIT = 'debit'
-  const CREDIT = 'credit'
+  DEBIT = 'debit'
+  CREDIT = 'credit'
 
-  const STATUS_NEW = 0
-  const STATUS_OK = 1
+  STATUS_NEW = 0
+  STATUS_OK = 1
 end

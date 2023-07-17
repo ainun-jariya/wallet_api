@@ -38,17 +38,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_191237) do
   end
 
   create_table "stocks", force: :cascade do |t|
-    t.float "buy_price"
-    t.float "sell_price"
     t.string "indices"
     t.string "identifier"
-    t.bigint "user_id"
-    t.datetime "bought_at"
-    t.datetime "sold_at"
+    t.string "symb"
+    t.integer "number_of_item"
+    t.string "typeable_type", default: "User"
+    t.bigint "typeable_id"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_stocks_on_user_id"
+    t.datetime "deleted_at"
+    t.index ["typeable_type", "typeable_id"], name: "index_stocks_on_typeable"
   end
 
   create_table "team_members", force: :cascade do |t|
@@ -71,15 +71,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_191237) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.string "typeable_type", default: "User"
-    t.bigint "typeable_id"
+    t.string "product_type", default: "Stock"
+    t.bigint "product_id"
+    t.bigint "wallet_id"
     t.float "debit"
     t.float "credit"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.index ["typeable_type", "typeable_id"], name: "index_transactions_on_typeable"
+    t.index ["product_type", "product_id"], name: "index_transactions_on_product"
+    t.index ["wallet_id"], name: "index_transactions_on_wallet_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_16_191237) do
     t.bigint "typeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["typeable_type", "typeable_id"], name: "index_wallets_on_typeable"
   end
 

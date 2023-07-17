@@ -7,6 +7,7 @@ class CreateWallets < ActiveRecord::Migration[7.0]
       t.references :typeable, polymorphic: { default: 'User' }
       # t.references :user
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end
