@@ -3,6 +3,7 @@
 module Api
   # API for money manipulation
   class MoneyController < ApplicationController
+    before_action :current_user
     before_action :find_wallet
     def cash_in
       money = @wallet.money.new(money_params)

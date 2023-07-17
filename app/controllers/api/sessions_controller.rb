@@ -14,8 +14,9 @@ module Api
     # method to create a session / login
     def create
       user = User.login(login_params[:email], login_params[:password])
-      session = Session.create({ token: Session.generate_token(user), user_id: user.id, device: nil })
-      if user.save
+      session = Session.new({ token: Session.generate_token(user), user_id: user.id, device: nil })
+      if session.save
+        @current_user = user
         render json: { token: session.token, user: user }.to_json, except: %i[deleted_at password]
       else
         render json: session.errors, status: 422

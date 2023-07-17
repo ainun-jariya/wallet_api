@@ -3,6 +3,7 @@
 module Api
   # API for user/team stock manipulation
   class TransactionsController < ApplicationController
+    before_action :current_user
     before_action :find_wallet, :find_stock
 
     def buy

@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_one :wallet, as: :typeable
   has_many :team_members
   has_many :teams, through: :team_members
-  attr_protected :password
 
   def self.login(emaill, password)
     require 'bcrypt'
