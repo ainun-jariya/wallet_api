@@ -4,6 +4,7 @@
 class Transaction < ApplicationRecord
   belongs_to :wallet
   alias_attribute :amount, :debit # first initialization
+  belongs_to :product, polymorphic: true
 
   DEBIT = 'debit'
   CREDIT = 'credit'

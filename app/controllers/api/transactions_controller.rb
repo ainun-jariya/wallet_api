@@ -2,7 +2,7 @@
 
 module Api
   # API for user/team stock manipulation
-  class TransactionsController < ApplicationController
+  class TransactionsController < ApiController
     before_action :current_user
     before_action :find_wallet, :find_stock
 
@@ -19,7 +19,7 @@ module Api
           @stock.number_of_item += @stock_params[:number_of_item].to_i
           @stock.save
         else
-          @stock = Stock.create(@stock_params)
+          @stock = @current_user.stocks.create(@stock_params)
           transaction.update(product_id: @stock.id)
         end
         render json: transaction, except: %i[deleted_at]
@@ -63,7 +63,7 @@ module Api
     end
 
     def find_stock
-      @stock = Stock.where(transaction_params[:stock].except(:number_of_item)).first
+      @stock = @current_user.stocks.where(transaction_params[:stock].except(:number_of_item)).first
     rescue ActiveRecord::RecordNotFound
       render json: 'Stock not found', status: 422
     end

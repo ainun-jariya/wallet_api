@@ -2,7 +2,7 @@
 
 module Api
   # API for user manipulation
-  class UsersController < ApplicationController
+  class UsersController < ApiController
     before_action :current_user, only: %i[show update destroy]
 
     def index

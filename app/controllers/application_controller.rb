@@ -5,11 +5,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   def current_user
-    return render json: 'No token provided', status: 401 if request.headers['Authorization'].nil?
+    return redirect_to new_session_path if session[:current_user_id].nil?
 
-    session = Session.find_by_token(request.headers['Authorization'])
-    @current_user = session.user
+    user = User.find(session[:current_user_id])
+    @current_user = user
   rescue ActiveRecord::RecordNotFound, NoMethodError
-    render json: 'User not found', status: 401
+    @current_user = User.first
+    redirect_to new_session_path
   end
 end

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <%= link_to  "Logout", sessions_path, method: :delete, data: {turbo_method: :delete} %> <br/><br/>
+        <p>Name: <%= @current_user.name %></p>
+        <p>Balance: <%= @wallet.balance %></p>
+        <p>Stocks:</p>
+        <% @stocks.each do |stock| %>
+            <p><%= stock.symb %> | <%= stock.number_of_item %></p>
+        <% end %>
+        <p>Ins & Outs:</p>
+        <% @ins_outs.each do |in_out| %>
+            <% if in_out.credit.present? && in_out.credit.to_i != 0 %>
+                <p>+<%= in_out.credit %></p>
+            <% end %>
+            <% if in_out.debit.present? && in_out.debit.to_i != 0 %>
+                <p>-<%= in_out.debit %></p>
+            <% end %>
+        <% end %>
+        <p>Transactions:</p>
+        <% @transactions.each do |transaction| %>
+            <% if transaction.credit.present? && transaction.credit.to_i != 0 %>
+                <p>Sell = +<%= transaction.credit %> | Stock: <%= transaction.product.symb %></p>
+            <% end %>
+            <% if transaction.debit.present? && transaction.debit.to_i != 0 %>
+                <p>Buy = -<%= transaction.debit %> | Stock: <%= transaction.product.symb %></p>
+            <% end %>
+        <% end %>
+    </body>
+</html>

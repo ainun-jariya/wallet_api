@@ -2,7 +2,7 @@
 
 module Api
   # API for money manipulation
-  class MoneyController < ApplicationController
+  class MoneyController < ApiController
     before_action :current_user
     before_action :find_wallet
     def cash_in

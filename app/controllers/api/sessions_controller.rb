@@ -2,7 +2,7 @@
 
 module Api
   # API for session manipulation [login]
-  class SessionsController < ApplicationController
+  class SessionsController < ApiController
     # method to verify / get profile user
     def index
       session = Session.where(token: session_params[:token]).first
