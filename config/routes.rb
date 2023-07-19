@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "dashboard#index"
+  root 'dashboard#index'
 
   resources :sessions, only: %i[new create] do
     collection do
@@ -20,7 +20,11 @@ Rails.application.routes.draw do
         delete :destroy
       end
     end
-    resources :teams
+    resources :teams do
+      member do
+        post :add_members
+      end
+    end
     resources :money, only: %i[] do
       collection do
         post :cash_in

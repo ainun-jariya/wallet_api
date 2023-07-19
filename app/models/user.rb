@@ -5,6 +5,8 @@ class User < ApplicationRecord
   validates_presence_of %i[name email]
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates_format_of :phone, with: /(0|\+)[0-9]{9,15}/, message: 'Phone format invalid'
+  validates_uniqueness_of :email
+  validates_uniqueness_of :phone
   has_many :sessions
   has_one :wallet, as: :typeable
   has_many :team_members

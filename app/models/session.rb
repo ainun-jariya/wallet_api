@@ -9,7 +9,7 @@ class Session < ApplicationRecord
     def generate_token(user)
       require 'sha3'
       s = SHA3::Digest.new(:sha256)
-      s << "#{user.id} + #{user.email}"
+      s << "#{user.id} + #{user.email} + #{Time.now}"
       s.hexdigest
     end
   end
