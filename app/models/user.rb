@@ -16,7 +16,15 @@ class User < ApplicationRecord
   def self.login(emaill, password)
     require 'bcrypt'
     user = User.where(email: emaill).first
-    user if BCrypt::Password.new(user&.password || '') == password
+    if user.present?
+      if BCrypt::Password.new(user.password) == password
+        user
+      else
+        nil
+      end
+    else
+      nil
+    end
   end
 
   class << self

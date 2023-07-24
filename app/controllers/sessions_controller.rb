@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.login(login_params[:email], login_params[:password])
+    return redirect_to new_session_path if user.nil?
     sessionn = Session.new({ token: Session.generate_token(user), user_id: user.id, device: nil })
     if sessionn.save
       session[:current_user_id] = user.id
